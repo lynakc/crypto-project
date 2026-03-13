@@ -90,7 +90,7 @@ Chaque fichier d’algorithme doit implémenter les fonctions suivantes :
 ```python
 def encrypt(message, key):
     """
-    Chiffre le message donné en utilisant la clé fournie.
+    Chiffre le message donné en utilisant la clé fournie (chaque algo implement la methode get_key()).
     Retourne le texte chiffré.
     """
     pass

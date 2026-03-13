@@ -37,8 +37,8 @@ def symmetric_menu():
   choice = input("Choisir un algorithme: ")
 
   message = input("Message: ")
-  key = input("Clé: ")
-  method = input("1 Chiffrement / 2 Déchiffrement: ")
+
+  method = input("1- Chiffrement | 2- Déchiffrement: ")
 
   if choice == "1":
       algo = cesar
@@ -73,6 +73,8 @@ def symmetric_menu():
   else:
     print("Choix invalide")
     return
+  
+  key = algo.get_key()
 
   if method == "1":
     result = algo.encrypt(message, key)
@@ -86,7 +88,7 @@ def main():
 
   while True:
 
-    print("\n===== Type Cryptographie =====")
+    print("\n===== Type de Cryptographie =====")
     print("1 - Cryptographie symétrique")
     print("2 - Cryptographie asymétrique")
     print("0 - Exit")
