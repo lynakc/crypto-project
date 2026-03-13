@@ -17,14 +17,14 @@ from symetric import mars
 
 def symmetric_menu():
 
-  print("\n--- Symmetric Cryptography ---")
+  print("\n--- Cryptographie symétrique ---")
   print("1 - Cesar")
   print("2 - Vigenere")
   print("3 - Affine")
   print("4 - Playfair")
   print("5 - Hill")
   print("6 - One Time Pad")
-  print("7 - Substitution Aleatoire")
+  print("7 - Substitution Aléatoire")
   print("8 - RC4")
   print("9 - DES")
   print("10 - AES")
@@ -34,11 +34,11 @@ def symmetric_menu():
   print("14 - RC6")
   print("15 - MARS")
 
-  choice = input("Choose algorithm: ")
+  choice = input("Choisir un algorithme: ")
 
   message = input("Message: ")
-  key = input("Key: ")
-  method = input("1 Encrypt / 2 Decrypt: ")
+  key = input("Clé: ")
+  method = input("1 Chiffrement / 2 Déchiffrement: ")
 
   if choice == "1":
       algo = cesar
@@ -71,7 +71,7 @@ def symmetric_menu():
   elif choice == "15":
       algo = mars
   else:
-    print("Invalid choice")
+    print("Choix invalide")
     return
 
   if method == "1":
@@ -86,12 +86,12 @@ def main():
 
   while True:
 
-    print("\n===== CRYPTOGRAPHY TOOL =====")
-    print("1 - Symmetric Cryptography")
-    print("2 - Asymmetric Cryptography")
+    print("\n===== Type Cryptographie =====")
+    print("1 - Cryptographie symétrique")
+    print("2 - Cryptographie asymétrique")
     print("0 - Exit")
 
-    choice = input("Choice: ")
+    choice = input("Choix: ")
 
     if choice == "1":
       symmetric_menu()
@@ -100,11 +100,11 @@ def main():
       print("asymmetric_menu()") #apres on enleve print
 
     elif choice == "0":
-      print("Goodbye")
+      print("Au revoir")
       break
 
     else:
-      print("Invalid choice")
+      print("Choix invalide")
 
 
 if __name__ == "__main__":

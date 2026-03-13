@@ -1,21 +1,21 @@
-# Cryptography Algorithms Project
+# Projet d'Algorithmes de Cryptographie
 
-## Overview
+## Présentation
 
-This project implements several cryptographic algorithms in Python as part of a coursework project.
+Ce projet consiste à implémenter plusieurs algorithmes de cryptographie en Python.
 
-The goal is to implement both **classical and modern cryptographic algorithms**, organized into two categories:
+L’objectif est d’implémenter des **algorithmes de cryptographie classiques et modernes**, organisés en deux catégories principales :
 
-* Symmetric cryptography
-* Asymmetric cryptography
+* Cryptographie symétrique
+* Cryptographie asymétrique
 
-The project is built using **Python** and organized in a modular structure so that each algorithm is implemented in a separate file.
+Le projet est structuré de manière modulaire afin que **chaque algorithme soit implémenté dans un fichier séparé**.
 
 ---
 
-# Project Structure
+# Structure du projet
 
-```
+```text
 crypto-project/
 │
 ├── main.py
@@ -43,37 +43,37 @@ crypto-project/
     └── diffie_hellman.py
 ```
 
-* `main.py` : main interface and menu
-* `sym/` : symmetric cryptography algorithms
-* `asym/` : asymmetric cryptography algorithms
+* `main.py` : programme principal et menu utilisateur
+* `sym/` : algorithmes de cryptographie symétrique
+* `asym/` : algorithmes de cryptographie asymétrique
 
-Each algorithm is implemented in its own file.
+Chaque algorithme est implémenté dans **un fichier distinct**.
 
 ---
 
-# Implemented Algorithms
+# Algorithmes implémentés
 
-## Symmetric Cryptography
+## Cryptographie symétrique
 
-* Caesar Cipher
-* Vigenere Cipher
-* Affine Cipher
-* Playfair Cipher
-* Hill Cipher
+* Chiffre de César
+* Chiffre de Vigenère
+* Chiffre Affine
+* Chiffre de Playfair
+* Chiffre de Hill
 * One-Time Pad
-* Random Substitution Cipher
+* Substitution aléatoire
 * RC4
 * DES
 * AES
-* Feistel Structure
+* Structure de Feistel
 * Twofish
 * Serpent
 * RC6
 * MARS
 
-## Asymmetric Cryptography
+## Cryptographie asymétrique
 
-(To be implemented later)
+(À implémenter ultérieurement)
 
 * RSA
 * ElGamal
@@ -81,72 +81,72 @@ Each algorithm is implemented in its own file.
 
 ---
 
-# Algorithm Interface (IMPORTANT)
+# Interface des algorithmes (IMPORTANT)
 
-To keep the project consistent, **all algorithms must follow the same function structure**.
+Afin d’assurer la cohérence du projet, **tous les algorithmes doivent respecter la même structure de fonctions**.
 
-Each algorithm file must implement the following functions:
+Chaque fichier d’algorithme doit implémenter les fonctions suivantes :
 
 ```python
 def encrypt(message, key):
     """
-    Encrypt the given message using the provided key.
-    Returns the ciphertext.
+    Chiffre le message donné en utilisant la clé fournie.
+    Retourne le texte chiffré.
     """
     pass
 
 
 def decrypt(ciphertext, key):
     """
-    Decrypt the given ciphertext using the provided key.
-    Returns the original message.
+    Déchiffre le texte chiffré en utilisant la clé fournie.
+    Retourne le message original.
     """
     pass
 ```
 
-### Parameters
+### Paramètres
 
-* `message` : plaintext message to encrypt
-* `ciphertext` : encrypted message
-* `key` : encryption key (type depends on the algorithm)
+* `message` : texte en clair à chiffrer
+* `ciphertext` : texte chiffré à déchiffrer
+* `key` : clé utilisée par l’algorithme (le type dépend de l’algorithme)
 
-### Return Value
+### Valeur retournée
 
-Each function must return a **string containing the result**.
+Chaque fonction doit **retourner une chaîne de caractères contenant le résultat**.
 
-Example usage from `main.py`:
+Exemple d’utilisation depuis `main.py` :
 
 ```python
 from sym import cesar
 
-cipher = cesar.encrypt("hello", 3)
+cipher = cesar.encrypt("bonjour", 3)
 plain = cesar.decrypt(cipher, 3)
 ```
 
 ---
 
-# How to Run
+# Exécution du programme
 
-Run the main program:
+Pour lancer le programme principal :
 
-```
+```bash
 python main.py
 ```
 
-The program will display a menu allowing the user to:
+Le programme affichera un menu permettant de :
 
-1. Choose symmetric or asymmetric cryptography
-2. Select an algorithm
-3. Choose encryption or decryption
-4. Enter the message and key
+1. Choisir entre cryptographie symétrique et asymétrique
+2. Sélectionner un algorithme
+3. Choisir le mode (chiffrement ou déchiffrement)
+4. Entrer le message et la clé
 
 ---
 
 
-# Notes
+# Remarques importantes
 
-All algorithms must:
+Tous les algorithmes doivent :
 
-* follow the common encrypt/decrypt interface
-* avoid interactive input inside the algorithm files
-* return results instead of printing them
+* respecter l’interface commune `encrypt()` / `decrypt()`
+* ne pas demander d’entrées utilisateur directement dans les fichiers d’algorithmes
+* retourner le résultat au lieu de l’afficher avec `print()`
