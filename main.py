@@ -78,8 +78,15 @@ def symmetric_menu():
 
   if method == "1":
     result = algo.encrypt(message, key)
-  else:
+  elif method == "2":
     result = algo.decrypt(message, key)
+  else :
+    print("Choix invalide")
+    return
+  
+  if result is None :
+    #print("")
+    return
 
   print("Result:", result)
 
@@ -107,7 +114,6 @@ def main():
 
     else:
       print("Choix invalide")
-
 
 if __name__ == "__main__":
   main()
