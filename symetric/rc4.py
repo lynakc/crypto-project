@@ -30,18 +30,26 @@ def PRGA(s, n):
 
   return keystream
 
-def process(message, key):
+def encrypt(message, key):
   s = KSA(key)
   keystream = PRGA(s, len(message))
-  reuslt = ""
+  result = ""
 
   for i in range(len(message)):
-    result += chr(ord(message[i])^keystream[i]) #calculer le XOR
+    result += format(ord(message[i]) ^ keystream[i], '02x')
 
   return result
 
-def encrypt(message, key):
-  return process(message, key)
 
 def decrypt(message, key):
-  return process(message, key)
+  s = KSA(key)
+  keystream = PRGA(s, len(message)//2)
+
+  bytes_data = bytes.fromhex(message)
+
+  result = ""
+
+  for i in range(len(bytes_data)):
+    result += chr(bytes_data[i] ^ keystream[i])
+  
+  return result
