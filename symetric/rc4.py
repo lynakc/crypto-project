@@ -36,7 +36,8 @@ def encrypt(message, key):
   result = ""
 
   for i in range(len(message)):
-    result += format(ord(message[i]) ^ keystream[i], '02x')
+    result += format(ord(message[i]) ^ keystream[i], '02x') #calculer XOR et resultat en hexadecimal
+    #'02x' : 0: Remplit avec un zéro à gauche si la valeur est sur un seul caractère, 2:Définit la largeur minimale du champ à 2 caractères, x: : Convertit l'entier en hexadécimal
 
   return result
 
@@ -45,11 +46,11 @@ def decrypt(message, key):
   s = KSA(key)
   keystream = PRGA(s, len(message)//2)
 
-  bytes_data = bytes.fromhex(message)
+  bytes_data = bytes.fromhex(message) #conversion du message hexa en binaire
 
   result = ""
 
   for i in range(len(bytes_data)):
-    result += chr(bytes_data[i] ^ keystream[i])
+    result += chr(bytes_data[i] ^ keystream[i]) #XOR et transformation en caractere alphabetique
   
   return result
