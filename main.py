@@ -13,6 +13,9 @@ from symetric import twofish
 from symetric import serpent
 from symetric import rc6
 from symetric import mars
+from asymetric import diffiehellman
+from asymetric import rsa
+from asymetric import elgamal
 
 
 def symmetric_menu():
@@ -90,6 +93,44 @@ def symmetric_menu():
 
   print("Résultat:", result)
 
+def asymmetric_menu():
+
+  print("\n--- Cryptographie asymétrique ---")
+  print("1 - Diffie-Hellman")
+  print("2 - RSA")
+  print("3 - Elgamal")
+
+  choice = input("Choisir un algorithme: ")
+
+  if choice == "1":
+      algo = diffiehellman
+  elif choice == "2":
+      algo = rsa
+  elif choice == "3":
+      algo = elgamal
+  else:
+    print("Choix invalide")
+    return
+  
+  message = input("Message: ")
+
+  key = algo.get_key()
+  
+  method = input("1- Chiffrement | 2- Déchiffrement: ")
+
+  if method == "1":
+    result = algo.encrypt(message, key)
+  elif method == "2":
+    result = algo.decrypt(message, key)
+  else :
+    print("Choix invalide")
+    return
+  
+  if result is None :
+    #print("")
+    return
+
+  print("Résultat:", result)
 
 def main():
 
@@ -106,7 +147,7 @@ def main():
       symmetric_menu()
 
     elif choice == "2":
-      print("asymmetric_menu()") #apres on enleve print
+      asymmetric_menu()
 
     elif choice == "0":
       print("Au revoir")
