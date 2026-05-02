@@ -1,9 +1,12 @@
+import random
+import hashlib
+
 from symetric import cesar
 from symetric import vigenere
 from symetric import affine
 from symetric import hill
 from symetric import playfair
-from symetric import otp #one time pad
+from symetric import otp
 from symetric import substitution
 from symetric import rc4
 from symetric import des
@@ -13,11 +16,15 @@ from symetric import twofish
 from symetric import serpent
 from symetric import rc6
 from symetric import mars
+
 from asymetric import diffiehellman
 from asymetric import rsa
 from asymetric import elgamal
 
 
+# =========================
+# SYMMETRIC MENU
+# =========================
 def symmetric_menu():
 
   print("\n--- Cryptographie symétrique ---")
@@ -39,60 +46,49 @@ def symmetric_menu():
 
   choice = input("Choisir un algorithme: ")
 
-  if choice == "1":
-      algo = cesar
-  elif choice == "2":
-      algo = vigenere
-  elif choice == "3":
-      algo = affine
-  elif choice == "4":
-      algo = playfair
-  elif choice == "5":
-      algo = hill
-  elif choice == "6":
-      algo = otp
-  elif choice == "7":
-      algo = substitution
-  elif choice == "8":
-      algo = rc4
-  elif choice == "9":
-      algo = des
-  elif choice == "10":
-      algo = aes
-  elif choice == "11":
-      algo = feistel
-  elif choice == "12":
-      algo = twofish
-  elif choice == "13":
-      algo = serpent
-  elif choice == "14":
-      algo = rc6
-  elif choice == "15":
-      algo = mars
-  else:
+  algo_map = {
+    "1": cesar,
+    "2": vigenere,
+    "3": affine,
+    "4": playfair,
+    "5": hill,
+    "6": otp,
+    "7": substitution,
+    "8": rc4,
+    "9": des,
+    "10": aes,
+    "11": feistel,
+    "12": twofish,
+    "13": serpent,
+    "14": rc6,
+    "15": mars
+  }
+
+  if choice not in algo_map:
     print("Choix invalide")
     return
-  
-  message = input("Message: ")
 
+  algo = algo_map[choice]
+
+  message = input("Message: ")
   key = algo.get_key()
-  
+
   method = input("1- Chiffrement | 2- Déchiffrement: ")
 
   if method == "1":
     result = algo.encrypt(message, key)
   elif method == "2":
     result = algo.decrypt(message, key)
-  else :
+  else:
     print("Choix invalide")
-    return
-  
-  if result is None :
-    #print("")
     return
 
   print("Résultat:", result)
 
+
+# =========================
+# ASYMMETRIC MENU
+# =========================
 def asymmetric_menu():
 
   print("\n--- Cryptographie asymétrique ---")
@@ -103,35 +99,71 @@ def asymmetric_menu():
   choice = input("Choisir un algorithme: ")
 
   if choice == "1":
-      algo = diffiehellman
+    key = diffiehellman.get_key()
+    print("Clé finale Diffie-Hellman:", key)
+    return
+
   elif choice == "2":
-      algo = rsa
+    algo = rsa
   elif choice == "3":
-      algo = elgamal
+    algo = elgamal
   else:
     print("Choix invalide")
     return
-  
-  message = input("Message: ")
 
+  message = input("Message: ")
   key = algo.get_key()
-  
+
   method = input("1- Chiffrement | 2- Déchiffrement: ")
 
   if method == "1":
     result = algo.encrypt(message, key)
   elif method == "2":
     result = algo.decrypt(message, key)
-  else :
+  else:
     print("Choix invalide")
-    return
-  
-  if result is None :
-    #print("")
     return
 
   print("Résultat:", result)
 
+
+# =========================
+# HASH MENU (NEW)
+# =========================
+def hash_menu():
+
+  print("\n--- Fonctions de hachage ---")
+  print("1 - SHA-256")
+  print("2 - MD5")
+
+  choice = input("Choisir: ")
+  message = input("Message: ")
+
+  
+
+  message_final = message.strip().replace('\n', '').replace('\r', '')
+
+# SHA-256
+  if choice == "1":
+
+# Vérification binaire pour être sûr de ce qu'on envoie à l'algo
+    data_to_hash = message_final.encode()
+
+    h = hashlib.sha256(data_to_hash).hexdigest()
+    print(f"Hash SHA-256 : {h}")
+
+# MD5
+  elif choice == "2":
+    h = hashlib.md5(message_final.encode()).hexdigest()
+    print("Hash MD5:", h)
+
+  else:
+    print("Choix invalide")
+
+
+# =========================
+# MAIN LOOP
+# =========================
 def main():
 
   while True:
@@ -139,6 +171,7 @@ def main():
     print("\n===== Type de Cryptographie =====")
     print("1 - Cryptographie symétrique")
     print("2 - Cryptographie asymétrique")
+    print("3 - Fonctions de hachage")
     print("0 - Exit")
 
     choice = input("Choix: ")
@@ -149,12 +182,16 @@ def main():
     elif choice == "2":
       asymmetric_menu()
 
+    elif choice == "3":
+      hash_menu()
+
     elif choice == "0":
       print("Au revoir")
       break
 
     else:
       print("Choix invalide")
+
 
 if __name__ == "__main__":
   main()

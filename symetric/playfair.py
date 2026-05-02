@@ -1,85 +1,125 @@
 import string
 
+
+# =========================
+# KEY
+# =========================
 def get_key():
-  return input("Entrer la clé: ")
+    return input("Entrer la clé: ")
 
+
+# =========================
+# MATRIX (CORRECT)
+# =========================
 def generate_matrix(key):
-  key = key.upper().replace("J", "I")
-  seen = set()
-  matrix = []
+    key = key.upper().replace("J", "I")
 
-  for c in key + string.ascii_uppercase:
-    if c not in seen and c != "J":
-      seen.add(c)
-      matrix.append(c)
+    seen = set()
+    matrix = []
 
-  return [matrix[i:i+5] for i in range(0,25,5)]
+    # Key first
+    for c in key:
+        if c.isalpha() and c not in seen:
+            seen.add(c)
+            matrix.append(c)
 
+    # Alphabet
+    for c in string.ascii_uppercase:
+        if c == "J":
+            continue
+        if c not in seen:
+            seen.add(c)
+            matrix.append(c)
+
+    return [matrix[i:i+5] for i in range(0, 25, 5)]
+
+
+# =========================
+# FIND POSITION
+# =========================
 def find_pos(matrix, c):
-  for i in range(5):
-    for j in range(5):
-      if matrix[i][j] == c:
-        return i, j
+    for i in range(5):
+        for j in range(5):
+            if matrix[i][j] == c:
+                return i, j
 
+
+# =========================
+# PREPARE MESSAGE (FIXED)
+# =========================
 def prepare(message):
-  message = message.upper().replace("J","I").replace(" ","")
-  pairs = []
-  i = 0
+    message = message.upper().replace("J", "I").replace(" ", "")
 
-  while i < len(message):
-    a = message[i]
-    b = message[i+1] if i+1 < len(message) else "X"
+    pairs = []
+    i = 0
 
-    if a == b:
-      pairs.append((a,"X"))
-      i += 1
-    else:
-      pairs.append((a,b))
-      i += 2
+    while i < len(message):
+        a = message[i]
 
-  return pairs
+        if i + 1 < len(message):
+            b = message[i + 1]
+        else:
+            b = "X"
 
+        if a == b:
+            pairs.append((a, "X"))
+            i += 1
+        else:
+            pairs.append((a, b))
+            i += 2
+
+    return pairs
+
+
+# =========================
+# PROCESS (FIXED)
+# =========================
 def process(message, matrix, mode):
 
-  typec = input("1- Message en majuscule | 2- Message en minuscule: ")
-
-  if typec == "1":
+    # IMPORTANT FIX: force uppercase only
     message = message.upper().replace(" ", "")
-  elif typec == "2":
-    message = message.lower().replace(" ", "")
-  else:
-    print("Choix invalide")
-    return None
 
-  pairs = prepare(message)
-  result = ""
+    pairs = prepare(message)
+    result = ""
 
-  for a,b in pairs:
-    r1,c1 = find_pos(matrix,a)
-    r2,c2 = find_pos(matrix,b)
+    for a, b in pairs:
+        r1, c1 = find_pos(matrix, a)
+        r2, c2 = find_pos(matrix, b)
 
-    if r1 == r2:
-      if mode == "encrypt":
-        result += matrix[r1][(c1+1)%5] + matrix[r2][(c2+1)%5]
-      else:
-        result += matrix[r1][(c1-1)%5] + matrix[r2][(c2-1)%5]
+        # SAME ROW
+        if r1 == r2:
+            if mode == "encrypt":
+                result += matrix[r1][(c1 + 1) % 5]
+                result += matrix[r2][(c2 + 1) % 5]
+            else:
+                result += matrix[r1][(c1 - 1) % 5]
+                result += matrix[r2][(c2 - 1) % 5]
 
-    elif c1 == c2:
-      if mode == "encrypt":
-        result += matrix[(r1+1)%5][c1] + matrix[(r2+1)%5][c2]
-      else:
-        result += matrix[(r1-1)%5][c1] + matrix[(r2-1)%5][c2]
+        # SAME COLUMN
+        elif c1 == c2:
+            if mode == "encrypt":
+                result += matrix[(r1 + 1) % 5][c1]
+                result += matrix[(r2 + 1) % 5][c2]
+            else:
+                result += matrix[(r1 - 1) % 5][c1]
+                result += matrix[(r2 - 1) % 5][c2]
 
-    else:
-      result += matrix[r1][c2] + matrix[r2][c1]
+        # RECTANGLE
+        else:
+            result += matrix[r1][c2]
+            result += matrix[r2][c1]
 
-  return result
+    return result
 
 
+# =========================
+# INTERFACE FOR MAIN
+# =========================
 def encrypt(message, key):
-  matrix = generate_matrix(key)
-  return process(message, matrix, "encrypt")
+    matrix = generate_matrix(key)
+    return process(message, matrix, "encrypt")
+
 
 def decrypt(message, key):
-  matrix = generate_matrix(key)
-  return process(message, matrix, "decrypt")
+    matrix = generate_matrix(key)
+    return process(message, matrix, "decrypt")
