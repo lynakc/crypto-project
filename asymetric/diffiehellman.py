@@ -11,35 +11,28 @@ def get_key():
     a = int(input("Clé privée Alice: "))
     b = int(input("Clé privée Bob: "))
 
-    # =========================
-    # DIFFIE-HELLMAN
-    # =========================
+   
     A = pow(g, a, p)
     B = pow(g, b, p)
 
     print("A (Alice):", A)
     print("B (Bob):", B)
 
-    # =========================
-    # SIGNATURE
-    # =========================
+   
     key_alice = ECC.generate(curve='P-256')
     key_bob = ECC.generate(curve='P-256')
 
     signer_alice = DSS.new(key_alice, 'fips-186-3')
     signer_bob = DSS.new(key_bob, 'fips-186-3')
 
-    # Alice signe A
+  
     hA = SHA256.new(str(A).encode())
     sig_A = signer_alice.sign(hA)
 
-    # Bob signe B
     hB = SHA256.new(str(B).encode())
     sig_B = signer_bob.sign(hB)
 
-    # =========================
-    # VERIFICATION
-    # =========================
+   
     verifier_alice = DSS.new(key_alice.public_key(), 'fips-186-3')
     verifier_bob = DSS.new(key_bob.public_key(), 'fips-186-3')
 
@@ -57,9 +50,7 @@ def get_key():
         print("❌ Signature B invalide")
         return None
 
-    # =========================
-    # CLE PARTAGEE
-    # =========================
+  
     K_alice = pow(B, a, p)
     K_bob = pow(A, b, p)
 

@@ -5,8 +5,8 @@ def simple_hash(key):
   return [ord(c) % 256 for c in key]
 
 def F(x, k):
-  # fonction de mélange (inspirée)
-  return ((x ^ k) + ((x << 1) & 0xFFFFFFFF)) % (2**32) #xor, decalage a gauche et limite a 32 bits
+  
+  return ((x ^ k) + ((x << 1) & 0xFFFFFFFF)) % (2**32)
 
 def process_block(L, R, subkeys):
   for k in subkeys:
@@ -16,7 +16,7 @@ def process_block(L, R, subkeys):
 def encrypt(message, key):
   subkeys = simple_hash(key)
 
-  # padding
+  
   while len(message) % 8 != 0:
     message += " "
 
@@ -35,7 +35,7 @@ def encrypt(message, key):
   return result
 
 def decrypt(message, key):
-  subkeys = simple_hash(key)[::-1]  # inversion des sous cles
+  subkeys = simple_hash(key)[::-1]  
 
   result = ""
 
@@ -49,4 +49,4 @@ def decrypt(message, key):
 
     result += (L.to_bytes(4, 'big') + R.to_bytes(4, 'big')).decode()
 
-  return result.strip() #enlever les espaces ajoutes
+  return result.strip() 

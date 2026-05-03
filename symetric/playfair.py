@@ -1,29 +1,25 @@
 import string
 
 
-# =========================
-# KEY
-# =========================
+
 def get_key():
     return input("Entrer la clé: ")
 
 
-# =========================
-# MATRIX (CORRECT)
-# =========================
+
 def generate_matrix(key):
     key = key.upper().replace("J", "I")
 
     seen = set()
     matrix = []
 
-    # Key first
+    
     for c in key:
         if c.isalpha() and c not in seen:
             seen.add(c)
             matrix.append(c)
 
-    # Alphabet
+    
     for c in string.ascii_uppercase:
         if c == "J":
             continue
@@ -34,9 +30,6 @@ def generate_matrix(key):
     return [matrix[i:i+5] for i in range(0, 25, 5)]
 
 
-# =========================
-# FIND POSITION
-# =========================
 def find_pos(matrix, c):
     for i in range(5):
         for j in range(5):
@@ -44,9 +37,7 @@ def find_pos(matrix, c):
                 return i, j
 
 
-# =========================
-# PREPARE MESSAGE (FIXED)
-# =========================
+
 def prepare(message):
     message = message.upper().replace("J", "I").replace(" ", "")
 
@@ -71,12 +62,10 @@ def prepare(message):
     return pairs
 
 
-# =========================
-# PROCESS (FIXED)
-# =========================
+
 def process(message, matrix, mode):
 
-    # IMPORTANT FIX: force uppercase only
+    
     message = message.upper().replace(" ", "")
 
     pairs = prepare(message)
@@ -86,7 +75,7 @@ def process(message, matrix, mode):
         r1, c1 = find_pos(matrix, a)
         r2, c2 = find_pos(matrix, b)
 
-        # SAME ROW
+        
         if r1 == r2:
             if mode == "encrypt":
                 result += matrix[r1][(c1 + 1) % 5]
@@ -95,7 +84,7 @@ def process(message, matrix, mode):
                 result += matrix[r1][(c1 - 1) % 5]
                 result += matrix[r2][(c2 - 1) % 5]
 
-        # SAME COLUMN
+        
         elif c1 == c2:
             if mode == "encrypt":
                 result += matrix[(r1 + 1) % 5][c1]
@@ -104,7 +93,7 @@ def process(message, matrix, mode):
                 result += matrix[(r1 - 1) % 5][c1]
                 result += matrix[(r2 - 1) % 5][c2]
 
-        # RECTANGLE
+        
         else:
             result += matrix[r1][c2]
             result += matrix[r2][c1]
@@ -112,9 +101,7 @@ def process(message, matrix, mode):
     return result
 
 
-# =========================
-# INTERFACE FOR MAIN
-# =========================
+
 def encrypt(message, key):
     matrix = generate_matrix(key)
     return process(message, matrix, "encrypt")

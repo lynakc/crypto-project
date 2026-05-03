@@ -3,7 +3,7 @@ import random
 def get_key():
     choix = input("1- Entrer clé manuelle (Texte) | 2- Générer clé aléatoire: ")
     if choix == "1":
-        # On récupère la chaîne, on enlève les espaces et on convertit chaque lettre en 0-25
+    
         cle_texte = input("Entrer la clé: ").upper().replace(" ", "")
         return [ord(c) - ord('A') for c in cle_texte]
     else:

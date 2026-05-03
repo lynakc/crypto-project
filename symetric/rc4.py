@@ -2,15 +2,15 @@ def get_key():
   key = input("Entrer la clé: ")
   return key
 
-#generation de la permutation
+
 def KSA(key):
-  key = [ord(c) for c in key] #transforme la cle en une liste de nombre (le code ACII de chaque caractere)
-  s = list(range(256)) #une liste de 0 a 255
+  key = [ord(c) for c in key]
+  s = list(range(256)) 
   j = 0
 
   for i in range(256):
     j = (j+s[i]+key[i%len(key)])%256
-    s[i], s[j] = s[j], s[i] #permutation
+    s[i], s[j] = s[j], s[i] 
 
   return s
 

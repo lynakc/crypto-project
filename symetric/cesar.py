@@ -17,11 +17,11 @@ def encrypt(message, key):
 
   for c in message:
 
-    if c.isalpha(): #verifier si le caractere est une lettre
+    if c.isalpha(): 
 
-      base = ord('A') if c.isupper() else ord('a') #ord code ASCII d'un caractere
+      base = ord('A') if c.isupper() else ord('a')
 
-      result += chr((ord(c) - base + shift) % 26 + base) #quitter le code ASCII appliquer le decalage, revenir au code ASCII
+      result += chr((ord(c) - base + shift) % 26 + base) 
 
     else:
       result += c

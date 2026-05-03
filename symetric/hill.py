@@ -34,46 +34,46 @@ def process(message, matrix):
 
   typec = input("1- Message en majuscule | 2- Message en minuscule: ")
   if (typec == "1"):
-    #rendre tout les caracteres majuscule et enlever les espaces
-    message = message.upper().replace(" ", "") #ou message = message.low().replace(" ", "")
+    
+    message = message.upper().replace(" ", "") 
 
-    # ajouter X si longueur impaire
+    
     if len(message) % 2 != 0:
-      message += "X" #ou message += "x"
+      message += "X" 
 
     result = ""
 
     for i in range(0, len(message), 2):
 
-      x = ord(message[i]) - ord('A') #ou ord("a")
+      x = ord(message[i]) - ord('A') 
       y = ord(message[i+1]) - ord('A')
 
-      # multiplication matrice
+      
       r1 = (matrix[0][0]*x + matrix[0][1]*y) % 26
       r2 = (matrix[1][0]*x + matrix[1][1]*y) % 26
 
-      result += chr(r1 + ord('A')) #ou ord("a")
+      result += chr(r1 + ord('A')) 
       result += chr(r2 + ord('A'))
 
   elif (typec == "2") :
     message = message.lower().replace(" ", "")
 
-    # ajouter X si longueur impaire
+   
     if len(message) % 2 != 0:
-      message += "x" #ou message += "x"
+      message += "x" 
 
     result = ""
 
     for i in range(0, len(message), 2):
 
-      x = ord(message[i]) - ord('a') #ou ord("a")
+      x = ord(message[i]) - ord('a') 
       y = ord(message[i+1]) - ord('a')
 
-      # multiplication matrice
+     
       r1 = (matrix[0][0]*x + matrix[0][1]*y) % 26
       r2 = (matrix[1][0]*x + matrix[1][1]*y) % 26
 
-      result += chr(r1 + ord('a')) #ou ord("a")
+      result += chr(r1 + ord('a')) 
       result += chr(r2 + ord('a'))
 
   else :
