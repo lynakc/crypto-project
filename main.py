@@ -1,7 +1,7 @@
 import hashlib
 from symetric import cesar, vigenere, affine, hill, playfair, otp
 from symetric import substitution, rc4, des, aes, feistel, twofish, serpent, rc6, mars
-from asymetric import diffiehellman, rsa, elgamal
+from asymetric import diffiehellman, rsa, elgamal, md5_rsa
 
 
 def symmetric_menu():
@@ -70,6 +70,7 @@ def asymmetric_menu():
     print("1 - Diffie-Hellman")
     print("2 - RSA")
     print("3 - Elgamal")
+    print("4 - RSA + MD5")
 
     choice = input("Choisir un algorithme: ")
 
@@ -80,7 +81,8 @@ def asymmetric_menu():
 
     algo_map = {
         "2": rsa,
-        "3": elgamal
+        "3": elgamal,
+        "4": md5_rsa
     }
 
     if choice not in algo_map:
